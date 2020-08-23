@@ -6,28 +6,25 @@ import Catalogo from './components/Catalogo';
 
 function App() {
 
-  const [products, setProducts] = useState([])
+  const [ products, setProducts ] = useState([])
+  const [ search, setSearch ] = useState('')
 
-  const [ query, setQuery ] = useState('')
-
-  const handleSubmit = e => {
-    e.preventDefault()
-    consultarAPI()
-  }
-  const handleChange = e => setQuery(e.target.value)
-
-  const consultarAPI = async () => {
+  useEffect(() => {
+    const consultarApi = async () => {
+        if(search === '' ) return;
+        
+        const url = `http://localhost:4000/api/search?q=${search}`
+    
+        const response = await fetch(url)
+        const data = await response.json()
+        setProducts(data)
+    }
+    consultarApi();
+  }, [search])
   
-    const url = `http://localhost:4000/api/search?q=${query}`
-
-    const response = await fetch(url)
-    const data = await response.json()
-    setProducts(data)
-}
-
   return (
     <div className = "container">
-      <SearchBar handleSubmit={handleSubmit} handleChange={handleChange}/>
+      <SearchBar setSearch={setSearch}/>
       <Catalogo products = { products }/>
     </div>
   );

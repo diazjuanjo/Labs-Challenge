@@ -1,8 +1,13 @@
 import React, {useState} from 'react'
 
-const SearchBar = ({ handleSubmit, handleChange }) => {
+const SearchBar = ({ setSearch }) => {
 
-  
+  const [ query, setQuery ] = useState('')
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    setSearch(query);
+  }
 
   return (
     <div>
@@ -17,7 +22,7 @@ const SearchBar = ({ handleSubmit, handleChange }) => {
             type="search" 
             placeholder="Search" 
             aria-label="Search"
-            onChange={ handleChange }
+            onChange={ e => setQuery(e.target.value) }
           />
           <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
