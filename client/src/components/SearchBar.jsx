@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
 
-const SearchBar = ({ setSearch }) => {
+const SearchBar = ({ setSearch, setOffset }) => {
 
   const [ query, setQuery ] = useState('')
 
   const handleSubmit = e => {
-    e.preventDefault();
-    setSearch(query);
+    e.preventDefault()
+    setSearch(query)
+    setOffset(1)
   }
 
   return (

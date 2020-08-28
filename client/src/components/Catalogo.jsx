@@ -2,9 +2,9 @@ import React from 'react'
 import ProductCard from './ProductCard'
 
 const Catalogo = ({products}) => {
-  console.log(products)
+  // console.log(products)
   return (
-    <div className="row">
+    <div className="row mt-4">
       { products.map( product => (
         <ProductCard 
           key = { product.id}

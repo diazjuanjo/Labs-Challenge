@@ -12,8 +12,14 @@ app.use((req, res, next) => {
 })
 
 app.get('/api/search', (req, res)=>{
-  const query = req.query.q
-  fetch(`https://api.mercadolibre.com/sites/MLA/search?q=${query}`)
+  let condition = ''
+  const { q, limit, offset, sort, ITEM_CONDITION } = req.query
+
+  ITEM_CONDITION === '0' ? condition : condition = `&ITEM_CONDITION=${ITEM_CONDITION}`
+
+  // console.log('condicion ', condition)
+  
+  fetch(`https://api.mercadolibre.com/sites/MLA/search?q=${q}&limit=${limit}&offset=${offset}&sort=${sort}${condition}`)
     .then((res)=>{
       return res.json()
     })
@@ -31,7 +37,10 @@ app.get('/api/search', (req, res)=>{
               }
               items.push(item)
           })
-      res.send(items)
+      res.json({
+        total: json.paging.total,
+        results: items
+      })
     })
 })
 
