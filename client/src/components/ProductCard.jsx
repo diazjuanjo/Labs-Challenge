@@ -5,19 +5,23 @@ const ProductCard = ( {product} ) => {
   const { title, price, currency_id, available_quantity, thumbnail, condition } = product
 
   return (
-    <div className="col-lg-4 col-md-6 mb-4">
-      <div className="card h-100">
-          <img className="card-img-top" src={thumbnail} alt=""/>
+    <div className="card mb-3">
+      <div className="row no-gutters">
+        <div className="col-md-4">
+          <img src={thumbnail} className="card-img" alt="..."/>
+        </div>
+        <div className="col-md-8">
           <div className="card-body">
-              <h4 className="card-title">{title}</h4>
-              <small className="text-muted">Condicion: {condition}</small>
-              <p className="card-text">Disponibilidad: {available_quantity}</p>
+            <h5 className="card-title">{title}</h5>
+            <p className="card-text">Condicion: {condition}</p>
+            <p className="card-text"><small className="text-muted">Disponibilidad: {available_quantity}</small></p>
+            <div className="card-footer">
+              <h5>{currency_id} $ {price}</h5>
+            </div>
           </div>
-          <div className="card-footer">
-          <h5>$ {price}</h5>
-          </div>
+        </div>
       </div>
-  </div>
+    </div>
   )
 }
 

@@ -13,7 +13,7 @@ const SearchBar = ({ setSearch, setOffset }) => {
   return (
     <div>
       <nav className="navbar navbar-light bg-light">
-        <a className="navbar-brand">Labs - Challenge</a>
+        <h2 className="navbar-brand">Labs - Challenge</h2>
         <form 
           className="form-inline"
           onSubmit={ handleSubmit }

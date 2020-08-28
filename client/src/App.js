@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import SearchBar from './components/SearchBar';
 import Catalogo from './components/Catalogo';
+import Sidebar from './components/Sidebar';
 
 
 
@@ -10,13 +11,15 @@ function App() {
   const [ search, setSearch ] = useState('')
   const [ offset, setOffset ] = useState(1)
   const [ total, setTotal] = useState(1)
+  const [ sort, setSort ] = useState('relevance')
+  const [ condition, setCondition] = useState('0')
 
   useEffect(() => {
     const consultarApi = async () => {
         if(search === '' ) return
         
         const limit = 30
-        const url = `http://localhost:4000/api/search?q=${search}&limit=${limit}&offset=${offset}&sort=relevance&ITEM_CONDITION=0`
+        const url = `http://localhost:4000/api/search?q=${search}&limit=${limit}&offset=${offset*limit}&sort=${sort}&ITEM_CONDITION=${condition}`
     
         const response = await fetch(url)
         const data = await response.json()
@@ -30,7 +33,7 @@ function App() {
         up.scrollIntoView({ behavior: 'smooth' })
     }
     consultarApi()
-  }, [search, offset])
+  }, [search, offset, sort, condition])
 
   const previous = () => {
     const newOffset = offset - 1
@@ -51,13 +54,20 @@ function App() {
   return (
     <div className = "container up">
       <SearchBar setSearch={setSearch} setOffset={setOffset}/>
-      <Catalogo products = { products }/>
+      <div className="row">
+        <div className="col-lg-2">
+          <Sidebar setSort={setSort} setCondition={setCondition}/>
+        </div>
+        <div className="col-lg-10">
+          <Catalogo products = { products }/>
+        </div>
+      </div>
       
-      <div className="row justify-content-center">
+      <div className="row justify-content-center my-4">
           { (offset === 1) ? null : (
             <button 
                 type="button"
-                className="bbtn btn-info mr-1"
+                className="btn btn-info mr-1"
                 onClick={previous}
             >&laquo; Anterior </button>
           ) }
@@ -65,7 +75,7 @@ function App() {
           { (offset === total) ? null : (
             <button 
               type="button"
-              className="bbtn btn-info"
+              className="btn btn-info"
               onClick={next}
             >Siguiente &raquo;</button>
           ) }
