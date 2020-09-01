@@ -1,18 +1,15 @@
-import React from 'react'
-import ProductCard from './ProductCard'
+import React from "react";
+import ProductCard from "./ProductCard";
 
-const Catalogo = ({products}) => {
+const Catalogo = ({ products }) => {
   // console.log(products)
   return (
     <div>
-      { products.map( product => (
-        <ProductCard 
-          key = { product.id}
-          product = { product }
-        />
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Catalogo
+export default Catalogo;
