@@ -31,9 +31,8 @@ app.get("/api/search", (req, res) => {
       return res.json();
     })
     .then((json) => {
-      const items = [];
-      json.results.map((result) => {
-        const item = {
+      const items = json.results.map((result) => {
+        return {
           id: result.id,
           title: result.title,
           price: result.price,
@@ -42,7 +41,6 @@ app.get("/api/search", (req, res) => {
           thumbnail: result.thumbnail,
           condition: result.condition,
         };
-        items.push(item);
       });
       res.json({
         total: json.paging.total,
